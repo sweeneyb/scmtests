@@ -2,8 +2,7 @@ pipeline {
   agent any
 
   environment {
-    COMMIT_HASH = "${env.CHANGE_ID}"
-    //COMMIT_HASH = sh(returnStdout: true, script: 'git rev-parse --short=4 HEAD').trim()
+    COMMIT_HASH = sh(returnStdout: true, script: 'git rev-parse --short=4 HEAD').trim()
     BRANCH = "${env.GIT_BRANCH}"
     TAG = "${env.BRANCH}.${env.COMMIT_HASH}.${env.BUILD_NUMBER}".drop(15)
     DEV_TAG = "${env.BRANCH}.${env.COMMIT_HASH}.${env.BUILD_NUMBER}".drop(7)
