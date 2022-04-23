@@ -37,6 +37,13 @@ pipeline {
         }
       }
     }
+    stage("display vars") {
+        steps {
+            script {
+                echo "type: ${type}"
+            }
+        }
+    }
   }
 
 
