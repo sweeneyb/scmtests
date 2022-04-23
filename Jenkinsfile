@@ -29,6 +29,11 @@ pipeline {
           } else {
               echo "branch is ${BRANCH}"
           }
+          IFS='/'
+          for x in ${BRANCH}
+          do
+            echo "> [$x]"
+          done
         }
       }
     }
