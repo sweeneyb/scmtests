@@ -15,8 +15,8 @@ pipeline {
         sh "printenv | sort"
         echo "${DEV_TAG}.latest"
         script {
-          if (BRANCH.contains('origin/develop')) {
-            echo 'branch is develop'
+          if (BRANCH.contains('multi')) {
+            echo 'branch is multi'
             script {
               $VERSION = "${env.DEV_TAG}"
             }
@@ -25,6 +25,8 @@ pipeline {
             // }
 
             echo "${env.VERSION}"
+          } else {
+              echo "branch is ${BRANCH}"
           }
         }
       }
