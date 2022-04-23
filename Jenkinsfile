@@ -29,7 +29,7 @@ pipeline {
           } else {
               echo "branch is ${BRANCH}"
           }
-          def values = ${BRANCH}.split("/")
+          def values = "${BRANCH}".split("/")
           echo "${values[0]}"
         }
       }
