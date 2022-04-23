@@ -30,7 +30,10 @@ pipeline {
               echo "branch is ${BRANCH}"
           }
           def values = "${BRANCH}".split("/")
-          echo "${values[0]}"
+          if(values.length() > 1) {
+            def type = "${values[0]}"
+            def name = "${values[1]}"
+          }
         }
       }
     }
