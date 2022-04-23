@@ -16,7 +16,8 @@ pipeline {
         echo "${DEV_TAG}.latest"
         script {
           if (BRANCH.contains('multi')) {
-            echo 'branch is multi'
+            echo 'I am in the multi conditional'
+            echo "branch is ${BRANCH}"
             script {
               $VERSION = "${env.DEV_TAG}"
             }
