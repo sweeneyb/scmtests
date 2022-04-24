@@ -18,14 +18,15 @@ pipeline {
           if (BRANCH.contains('multi')) {
             echo 'I am in the multi conditional'
             echo "branch is ${BRANCH}"
-            script {
-              $VERSION = "${env.DEV_TAG}"
-            }
+            
+            $VERSION = "${env.DEV_TAG}"
+            
             // withEnv([VERSION = "${env.DEV_TAG}"]) { //remove (['VERSION = ${env.DEV_TAG}'])
             // echo "${env.VERSION}"
             // }
 
-            echo "${env.VERSION}"
+            echo "this is env version ${env.VERSION}"
+            echo "this is version ${VERSION}"
           } else {
               echo "branch is ${BRANCH}"
           }
@@ -34,6 +35,6 @@ pipeline {
     }
   }
 
-  
+
   
 }
