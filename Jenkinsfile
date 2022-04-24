@@ -21,7 +21,7 @@ pipeline {
             
             $VERSION = "${env.DEV_TAG}"
 
-            $VERSION = "foo"
+            VERSION = "foo"
             
             // withEnv([VERSION = "${env.DEV_TAG}"]) { //remove (['VERSION = ${env.DEV_TAG}'])
             // echo "${env.VERSION}"
