@@ -15,6 +15,7 @@ pipeline {
         sh "printenv | sort"
         echo "${DEV_TAG}.latest"
         script {
+          echo "${env.BRANCH_NAME} is the branch_name"
           if (BRANCH.contains('multi')) {
             echo 'I am in the multi conditional'
             echo "branch is ${BRANCH}"
