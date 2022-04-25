@@ -35,7 +35,7 @@ pipeline {
           def name = "${values[1]}"
           echo "type: ${type}"
           echo "name: ${name}"
-          if (values.length() == 2) {
+          if (values.size() == 2) {
             "echo i win"
           } else {
             "not 2"
