@@ -35,6 +35,12 @@ pipeline {
           def name = "${values[1]}"
           echo "type: ${type}"
           echo "name: ${name}"
+          echo "" + values.length()
+          if (values.length() == 2) {
+            "echo i win"
+          } else {
+            "not 2"
+          }
         }
       }
     }
