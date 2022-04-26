@@ -36,9 +36,9 @@ pipeline {
           echo "type: ${type}"
           echo "name: ${name}"
           if (values.size() == 2) {
-            "echo i win"
+            echo "echo i win"
           } else {
-            "not 2"
+            echo "not 2"
           }
         }
       }
