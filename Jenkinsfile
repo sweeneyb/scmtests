@@ -15,6 +15,7 @@ pipeline {
         sh "printenv | sort"
         echo "${DEV_TAG}.latest"
         script {
+          echo "${env.BRANCH_NAME} is the branch_name"
           if (BRANCH.contains('multi')) {
             echo 'I am in the multi conditional'
             echo "branch is ${BRANCH}"
@@ -28,6 +29,16 @@ pipeline {
             echo "${env.VERSION}"
           } else {
               echo "branch is ${BRANCH}"
+          }
+          def values = "${BRANCH}".split("/")
+          def type = "${values[0]}"
+          def name = "${values[1]}"
+          echo "type: ${type}"
+          echo "name: ${name}"
+          if (values.size() == 2) {
+            "echo i win"
+          } else {
+            "not 2"
           }
         }
       }
