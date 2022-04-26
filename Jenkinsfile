@@ -24,9 +24,8 @@ pipeline {
           echo ""+values.size()
           def name = ""
           if (values.size() == 1) {
-            name = "${values[1]}"
-            echo "this would be a develop branch with branch tag ${name}"
             name = "${values[0]}"
+            echo "this would be a develop branch with branch tag ${name}"
           } else {
             def type = "${values[0]}"
             name = "${values[1]}"
