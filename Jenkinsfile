@@ -8,6 +8,20 @@ pipeline {
     VERSION = "${env.TAG}"
   }
 
+  enum BRANCH_TYPE {
+    DEVELOP,
+    FEATURE
+  }
+
+  def getSourceBranchType(String name) {
+    if(name.split("/") == 1) {
+      return BRANCH_TYPE.DEVELOP
+    } else {
+      return BRANCH_TYPE.FEATURE
+    }
+  }
+
+
   stages {
     stage("list environment variables") {
       steps {
@@ -24,6 +38,7 @@ pipeline {
           echo ""+values.size()
           def name = ""
           def TAG = ""
+          echo ""+getSourceBranchType(BRANCH)
           if (values.size() == 1) {
             name = "${values[0]}"
             echo "this would be a develop branch with branch tag ${name}"
