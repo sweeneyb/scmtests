@@ -22,9 +22,6 @@ pipeline {
           }
           def values = "${BRANCH}".split("/")
           echo ""+values.size()
-
-          echo "type: ${type}"
-          echo "name: ${name}"
           def name = ""
           if (values.size() == 1) {
             name = "${values[1]}"
