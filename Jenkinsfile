@@ -1,3 +1,7 @@
+def isDevelopBranch(branchName) {
+  return branchName.split("/").size() == 1
+}
+
 pipeline {
   agent any
 
@@ -25,7 +29,8 @@ pipeline {
           def name = ""
           def TAG = ""
 
-          if (values.size() == 1) {
+          // if (values.size() == 1) {
+          if (isDevelopBranch(BRANCH)) {
             name = "${values[0]}"
             echo "this would be a develop branch with branch tag ${name}"
             TAG = "develop"+TAG_SUFFIX
