@@ -4,8 +4,7 @@ pipeline {
   environment {
     COMMIT_HASH = sh(returnStdout: true, script: 'git rev-parse --short=4 HEAD').trim()
     BRANCH = "${env.GIT_BRANCH}"
-    TAG = "${env.BRANCH}.${env.COMMIT_HASH}.${env.BUILD_NUMBER}".drop(15)
-    DEV_TAG = "${env.BRANCH}.${env.COMMIT_HASH}.${env.BUILD_NUMBER}".drop(7)
+    TAG_SUFFIX = ".${env.COMMIT_HASH}.${env.BUILD_NUMBER}"
     VERSION = "${env.TAG}"
   }
 
@@ -22,23 +21,19 @@ pipeline {
             script {
               $VERSION = "${env.DEV_TAG}"
             }
-            // withEnv([VERSION = "${env.DEV_TAG}"]) { //remove (['VERSION = ${env.DEV_TAG}'])
-            // echo "${env.VERSION}"
-            // }
-
-            echo "${env.VERSION}"
           } else {
               echo "branch is ${BRANCH}"
           }
           def values = "${BRANCH}".split("/")
+          echo values.size()
           def type = "${values[0]}"
           def name = "${values[1]}"
           echo "type: ${type}"
           echo "name: ${name}"
-          if (values.size() == 2) {
-            echo "echo i win"
+          if (values.size() == 1) {
+            echo "this would be a develop branch with branch tag " +values[0]
           } else {
-            echo "not 2"
+            echo "this would be a feature/hotfix branch with branch tag " +values[1]
           }
         }
       }
