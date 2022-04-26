@@ -34,6 +34,7 @@ pipeline {
             echo "this would be a ${type} branch with branch tag ${name}"
             TAG = "${name}"+TAG_SUFFIX
           }
+          echo "${TAG}"
         }
       }
     }
