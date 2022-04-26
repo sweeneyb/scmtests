@@ -22,14 +22,19 @@ pipeline {
           }
           def values = "${BRANCH}".split("/")
           echo ""+values.size()
-          def type = "${values[0]}"
-          def name = "${values[1]}"
+
           echo "type: ${type}"
           echo "name: ${name}"
+          def name = ""
           if (values.size() == 1) {
-            echo "this would be a develop branch with branch tag " +values[0]
+            name = "${values[1]}"
+            echo "this would be a develop branch with branch tag ${name}"
+            name = "${values[0]}"
           } else {
-            echo "this would be a feature/hotfix branch with branch tag " +values[1]
+            def type = "${values[0]}"
+            name = "${values[1]}"
+            echo "this would be a ${type} branch with branch tag ${name}"
+
           }
         }
       }
