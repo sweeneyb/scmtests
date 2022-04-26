@@ -8,24 +8,10 @@ pipeline {
     VERSION = "${env.TAG}"
   }
 
-  enum BRANCH_TYPE {
-    DEVELOP,
-    FEATURE
-  }
-
-  def getSourceBranchType(String name) {
-    if(name.split("/") == 1) {
-      return BRANCH_TYPE.DEVELOP
-    } else {
-      return BRANCH_TYPE.FEATURE
-    }
-  }
-
-
   stages {
     stage("list environment variables") {
       steps {
-        sh "printenv | sort"
+        //sh "printenv | sort"
         script {
           echo "${env.BRANCH_NAME} is the branch_name"
           if (BRANCH.contains('multi')) {
@@ -38,7 +24,7 @@ pipeline {
           echo ""+values.size()
           def name = ""
           def TAG = ""
-          echo ""+getSourceBranchType(BRANCH)
+
           if (values.size() == 1) {
             name = "${values[0]}"
             echo "this would be a develop branch with branch tag ${name}"
@@ -49,7 +35,7 @@ pipeline {
             echo "this would be a ${type} branch with branch tag ${name}"
             TAG = "${name}"+TAG_SUFFIX
           }
-          echo "${TAG}"
+          echo "Final tag is ${TAG}"
         }
       }
     }
