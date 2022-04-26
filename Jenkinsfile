@@ -12,15 +12,11 @@ pipeline {
     stage("list environment variables") {
       steps {
         sh "printenv | sort"
-        echo "${DEV_TAG}.latest"
         script {
           echo "${env.BRANCH_NAME} is the branch_name"
           if (BRANCH.contains('multi')) {
             echo 'I am in the multi conditional'
             echo "branch is ${BRANCH}"
-            script {
-              $VERSION = "${env.DEV_TAG}"
-            }
           } else {
               echo "branch is ${BRANCH}"
           }
