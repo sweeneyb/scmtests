@@ -4,8 +4,7 @@ pipeline {
   environment {
     COMMIT_HASH = sh(returnStdout: true, script: 'git rev-parse --short=4 HEAD').trim()
     BRANCH = "${env.GIT_BRANCH}"
-    TAG = "${env.BRANCH}.${env.COMMIT_HASH}.${env.BUILD_NUMBER}".drop(15)
-    DEV_TAG = "${env.BRANCH}.${env.COMMIT_HASH}.${env.BUILD_NUMBER}".drop(7)
+    TAG_SUFFIX = ".${env.COMMIT_HASH}.${env.BUILD_NUMBER}"
     VERSION = "${env.TAG}"
   }
 
@@ -13,24 +12,24 @@ pipeline {
     stage("list environment variables") {
       steps {
         sh "printenv | sort"
-        echo "${DEV_TAG}.latest"
         script {
+          echo "${env.BRANCH_NAME} is the branch_name"
           if (BRANCH.contains('multi')) {
             echo 'I am in the multi conditional'
             echo "branch is ${BRANCH}"
-            
-            $VERSION = "${env.DEV_TAG}"
-
-            VERSION = "foo"
-            
-            // withEnv([VERSION = "${env.DEV_TAG}"]) { //remove (['VERSION = ${env.DEV_TAG}'])
-            // echo "${env.VERSION}"
-            // }
-
-            echo "this is env version ${env.VERSION}"
-            echo "this is version ${VERSION}"
           } else {
               echo "branch is ${BRANCH}"
+          }
+          def values = "${BRANCH}".split("/")
+          echo ""+values.size()
+          def type = "${values[0]}"
+          def name = "${values[1]}"
+          echo "type: ${type}"
+          echo "name: ${name}"
+          if (values.size() == 1) {
+            echo "this would be a develop branch with branch tag " +values[0]
+          } else {
+            echo "this would be a feature/hotfix branch with branch tag " +values[1]
           }
         }
       }
