@@ -7,10 +7,12 @@ def getBranchInfo(branchName) {
   if(isDevelopBranch(branchName)) {
     branchInfo["type"] = "develop"
     branchInfo["name"] = branchName
+    branchInfo["isDevelop"] = true
   } else {
     def details = branchName.split("/")
     branchInfo["type"] = details[0]
     branchInfo["name"] = details[1]
+    branchInfo["isDevelop"] = false
   }
   return branchInfo
 }
@@ -44,7 +46,7 @@ pipeline {
 
           // if (values.size() == 1) {
           def branchInfo = getBranchInfo(BRANCH)
-          if (isDevelopBranch(BRANCH)) {
+          if (branchInfo["isDevelop"]) {
             name = "${BRANCH}"
             echo "this would be a develop branch with branch tag ${name}"
             TAG = "develop"+TAG_SUFFIX
