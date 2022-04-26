@@ -2,6 +2,19 @@ def isDevelopBranch(branchName) {
   return branchName.split("/").size() == 1
 }
 
+def getBranchInfo(branchName) {
+  def branchInfo = [:]
+  if(isDevelopBranch(branchName)) {
+    branchInfo["type"] = "develop"
+    branchInfo["name"] = branchName
+  } else {
+    def details = branchName.split("/")
+    branchInfo["type"] = details[0]
+    branchInfo["name"] = details[1]
+  }
+  return branchInfo
+}
+
 pipeline {
   agent any
 
@@ -30,15 +43,14 @@ pipeline {
           def TAG = ""
 
           // if (values.size() == 1) {
+          def branchInfo = getBranchInfo(BRANCH)
           if (isDevelopBranch(BRANCH)) {
-            name = "${values[0]}"
+            name = "${BRANCH}"
             echo "this would be a develop branch with branch tag ${name}"
             TAG = "develop"+TAG_SUFFIX
           } else {
-            def type = "${values[0]}"
-            name = "${values[1]}"
-            echo "this would be a ${type} branch with branch tag ${name}"
-            TAG = "${name}"+TAG_SUFFIX
+            echo "this would be a ${branchInfo["type"]} branch with branch tag ${branchInfo["name"]}"
+            TAG = "${branchInfo["name"]}"+TAG_SUFFIX
           }
           echo "Final tag is ${TAG}"
         }
